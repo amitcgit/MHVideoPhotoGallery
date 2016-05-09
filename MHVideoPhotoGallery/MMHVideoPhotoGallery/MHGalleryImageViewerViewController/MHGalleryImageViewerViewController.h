@@ -38,6 +38,11 @@
 @property (nonatomic,getter = isUserScrolling)                   BOOL userScrolls;
 @property (nonatomic,getter = isHiddingToolBarAndNavigationBar)  BOOL hiddingToolBarAndNavigationBar;
 
+
+@property (nonatomic, assign,getter=isToolBarHidden) BOOL toolbarHidden;
+@property (nonatomic, strong) NSArray *rightBarButtonItems;
+@property (nonatomic, strong) UIBarButtonItem *leftBarButtonItem;
+
 -(MHGalleryController*)galleryViewController;
 -(void)updateToolBarForItem:(MHGalleryItem*)item;
 -(void)playStopButtonPressed;

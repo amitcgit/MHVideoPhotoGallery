@@ -142,12 +142,11 @@
         }
     }
     
-    UIBarButtonItem *doneBarButton =  [UIBarButtonItem.alloc initWithBarButtonSystemItem:UIBarButtonSystemItemDone
-                                                                                  target:self
-                                                                                  action:@selector(donePressed)];
+    self.navigationItem.rightBarButtonItems = self.rightBarButtonItems;
+    self.leftBarButtonItem.action = @selector(donePressed);
+    self.navigationItem.leftBarButtonItem = self.leftBarButtonItem;
     
-    self.navigationItem.rightBarButtonItem = doneBarButton;
-    
+
     self.view.backgroundColor = [self.UICustomization MHGalleryBackgroundColorForViewMode:MHGalleryViewModeImageViewerNavigationBarShown];
     
     
@@ -166,17 +165,6 @@
     
     [self.pageViewController.view mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(self.view);
-    }];
-    
-    self.toolbar = UIToolbar.new;
-    self.toolbar.tintColor = self.UICustomization.barButtonsTintColor;
-    self.toolbar.tag = 307;
-    [self.view addSubview:self.toolbar];
-    
-    [self.toolbar mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.view.mas_left);
-        make.right.mas_equalTo(self.view.mas_right);
-        make.bottom.mas_equalTo(self.view.mas_bottom);
     }];
     
     self.topSuperView = [MHGradientView.alloc initWithDirection:MHGradientDirectionBottomToTop andCustomization:self.UICustomization];
@@ -259,9 +247,21 @@
         self.shareBarButton.width = 30;
     }
     
-    
-    self.toolbar.barTintColor = self.UICustomization.barTintColor;
-    self.toolbar.barStyle = self.UICustomization.barStyle;
+    if(!self.isToolBarHidden) {
+        self.toolbar = UIToolbar.new;
+        self.toolbar.tintColor = self.UICustomization.barButtonsTintColor;
+        self.toolbar.tag = 307;
+        [self.view addSubview:self.toolbar];
+        
+        [self.toolbar mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(self.view.mas_left);
+            make.right.mas_equalTo(self.view.mas_right);
+            make.bottom.mas_equalTo(self.view.mas_bottom);
+        }];
+        self.toolbar.barTintColor = self.UICustomization.barTintColor;
+        self.toolbar.barStyle = self.UICustomization.barStyle;
+    }
+
     
     [(UIScrollView*)self.pageViewController.view.subviews[0] setDelegate:self];
     [(UIGestureRecognizer*)[[self.pageViewController.view.subviews[0] gestureRecognizers] firstObject] setDelegate:self];
@@ -529,31 +529,32 @@
 
 -(void)updateToolBarForItem:(MHGalleryItem*)item{
     
-    MHBarButtonItem *flex = [MHBarButtonItem.alloc initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
-                                                                        target:self
-                                                                        action:nil];
-    flex.type = MHBarButtonItemTypeFlexible;
-
-    
-    MHBarButtonItem *fixed = [MHBarButtonItem.alloc initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
-                                                                         target:self
-                                                                         action:nil];
-    fixed.width = 30;
-    fixed.type = MHBarButtonItemTypeFixed;
-    
-    [self enableOrDisbaleBarbButtons];
-    
-    
-    if (item.galleryType == MHGalleryTypeVideo) {
-        MHImageViewController *imageViewController = self.pageViewController.viewControllers.firstObject;
-        if (imageViewController.isPlayingVideo) {
-            [self changeToPauseButton];
+    if(!self.isToolBarHidden) {
+        MHBarButtonItem *flex = [MHBarButtonItem.alloc initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                                                                            target:self
+                                                                            action:nil];
+        flex.type = MHBarButtonItemTypeFlexible;
+        
+        
+        MHBarButtonItem *fixed = [MHBarButtonItem.alloc initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+                                                                             target:self
+                                                                             action:nil];
+        fixed.width = 30;
+        fixed.type = MHBarButtonItemTypeFixed;
+        
+        [self enableOrDisbaleBarbButtons];
+        
+        if (item.galleryType == MHGalleryTypeVideo) {
+            MHImageViewController *imageViewController = self.pageViewController.viewControllers.firstObject;
+            if (imageViewController.isPlayingVideo) {
+                [self changeToPauseButton];
+            }else{
+                [self changeToPlayButton];
+            }
+            [self setToolbarItemsWithBarButtons:@[self.shareBarButton,flex,self.leftBarButton,flex,self.playStopBarButton,flex,self.rightBarButton,flex,fixed] forGalleryItem:item];
         }else{
-            [self changeToPlayButton];
+            [self setToolbarItemsWithBarButtons:@[self.shareBarButton,flex,self.leftBarButton,flex,self.rightBarButton,flex,fixed] forGalleryItem:item];
         }
-        [self setToolbarItemsWithBarButtons:@[self.shareBarButton,flex,self.leftBarButton,flex,self.playStopBarButton,flex,self.rightBarButton,flex,fixed] forGalleryItem:item];
-    }else{
-        [self setToolbarItemsWithBarButtons:@[self.shareBarButton,flex,self.leftBarButton,flex,self.rightBarButton,flex,fixed] forGalleryItem:item];
     }
 }
 
