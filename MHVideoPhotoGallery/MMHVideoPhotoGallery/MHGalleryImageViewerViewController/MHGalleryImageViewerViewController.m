@@ -123,7 +123,7 @@
 }
 
 - (void)setShareImage:(UIImage *)shareImage {
-    _shareImage = imageBeingDownloaded;
+    _shareImage = shareImage;
 }
 
 - (void)setBackButtonImage:(UIImage *)image {
