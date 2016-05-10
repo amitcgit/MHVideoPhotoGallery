@@ -122,15 +122,15 @@
     }
 }
 
-- (void)setshareImage:(UIImage *)image {
-    _shareImage = image;
+- (void)setShareImage:(UIImage *)shareImage {
+    _shareImage = imageBeingDownloaded;
 }
 
-- (void)setbackButtonImage:(UIImage *)image {
+- (void)setBackButtonImage:(UIImage *)image {
     _backButtonImage = image;
 }
 
-- (void)setdeleteImage:(UIImage *)image {
+- (void)setDeleteImage:(UIImage *)image {
     _deleteImage = image;
 }
 
