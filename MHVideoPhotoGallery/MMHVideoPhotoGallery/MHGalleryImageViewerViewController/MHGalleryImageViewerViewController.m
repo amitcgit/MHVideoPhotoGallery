@@ -140,16 +140,19 @@
             self.navigationItem.hidesBackButton = YES;
         }
     }
+    UIBarButtonItem *shareButton = [UIBarButtonItem.alloc initWithImage:self.shareImage style:UIBarButtonItemStylePlain target:self action:@selector(sharePressed)];
     
-    [self.shareButton setAction:@selector(sharePressed)];
     if(self.deleteButton) {
-        [self.deleteButton setAction:@selector(deletePressed)];
-        self.navigationItem.rightBarButtonItems = @[self.deleteButton, self.shareButton];
+        UIBarButtonItem *deleteButton = [UIBarButtonItem.alloc initWithImage:self.deleteImage style:UIBarButtonItemStylePlain target:self action:@selector(deletePressed)];
+        
+        self.navigationItem.rightBarButtonItems = @[deleteButton, shareButton];
     } else {
-        self.navigationItem.rightBarButtonItems = @[self.shareButton];
+        
+        self.navigationItem.rightBarButtonItems = @[shareButton];
     }
-    self.backButtonItem.action = @selector(donePressed);
-    self.navigationItem.leftBarButtonItem = self.backButtonItem;
+    UIBarButtonItem *backBarButton = [UIBarButtonItem.alloc initWithImage:self.backButtonImage style:UIBarButtonItemStylePlain target:self action:@selector(donePressed)];
+
+    self.navigationItem.leftBarButtonItem = backBarButton;
     
 
     self.view.backgroundColor = [UIColor whiteColor];//[self.UICustomization MHGalleryBackgroundColorForViewMode:MHGalleryViewModeImageViewerNavigationBarShown];

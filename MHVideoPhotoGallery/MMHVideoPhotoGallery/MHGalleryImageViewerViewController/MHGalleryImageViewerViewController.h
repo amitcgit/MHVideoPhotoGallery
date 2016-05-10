@@ -45,9 +45,9 @@
 @property (nonatomic,getter = isHiddingToolBarAndNavigationBar)  BOOL hiddingToolBarAndNavigationBar;
 
 
-@property (nonatomic, strong) UIBarButtonItem *deleteButton;
-@property (nonatomic, strong) UIBarButtonItem *shareButton;
-@property (nonatomic, strong) UIBarButtonItem *backButtonItem;
+@property (nonatomic, strong) UIImage *deleteImage;
+@property (nonatomic, strong) UIImage *shareImage;
+@property (nonatomic, strong) UIImage *backButtonImage;
 @property (nonatomic, retain) id<MHGalleryImageViewerViewControllerDelegate> delegate;
 
 -(MHGalleryController*)galleryViewController;
