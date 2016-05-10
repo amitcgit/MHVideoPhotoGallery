@@ -133,21 +133,28 @@
         self.navigationItem.hidesBackButton = YES;
     }else{
         if (self.galleryViewController.UICustomization.backButtonState == MHBackButtonStateWithoutBackArrow) {
-            UIBarButtonItem *backBarButton = [UIBarButtonItem.alloc initWithImage:MHTemplateImage(@"ic_square")
-                                                                            style:UIBarButtonItemStylePlain
-                                                                           target:self
-                                                                           action:@selector(backButtonAction)];
+//            UIBarButtonItem *backBarButton = [UIBarButtonItem.alloc initWithImage:MHTemplateImage(@"ic_square")
+//                                                                            style:UIBarButtonItemStylePlain
+//                                                                           target:self
+//                                                                           action:@selector(backButtonAction)];
             self.navigationItem.hidesBackButton = YES;
-            self.navigationItem.leftBarButtonItem = backBarButton;
+            self.leftBarButtonItem.action = @selector(donePressed);
+            self.navigationItem.leftBarButtonItem = self.leftBarButtonItem;
         }
     }
     
-    self.navigationItem.rightBarButtonItems = self.rightBarButtonItems;
+    [self.shareButton setAction:@selector(sharePressed)];
+    if(self.deleteButton) {
+        [self.deleteButton setAction:@selector(deletePressed)];
+        self.navigationItem.rightBarButtonItems = @[self.deleteButton, self.shareButton];
+    } else {
+        self.navigationItem.rightBarButtonItems = @[self.shareButton];
+    }
     self.leftBarButtonItem.action = @selector(donePressed);
     self.navigationItem.leftBarButtonItem = self.leftBarButtonItem;
     
 
-    self.view.backgroundColor = [self.UICustomization MHGalleryBackgroundColorForViewMode:MHGalleryViewModeImageViewerNavigationBarShown];
+    self.view.backgroundColor = [UIColor whiteColor];//[self.UICustomization MHGalleryBackgroundColorForViewMode:MHGalleryViewModeImageViewerNavigationBarShown];
     
     
     self.pageViewController = [UIPageViewController.alloc initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll
@@ -211,57 +218,58 @@
         make.top.mas_equalTo(self.bottomSuperView.mas_top).with.offset(20);
     }];
 
-    self.playStopBarButton = [MHBarButtonItem.alloc initWithImage:MHGalleryImage(@"play")
-                                                            style:UIBarButtonItemStylePlain
-                                                           target:self
-                                                           action:@selector(playStopButtonPressed)];
-    self.rightBarButton.type = MHBarButtonItemTypePlayPause;
-
+//    self.playStopBarButton = [MHBarButtonItem.alloc initWithImage:MHGalleryImage(@"play")
+//                                                            style:UIBarButtonItemStylePlain
+//                                                           target:self
+//                                                           action:@selector(playStopButtonPressed)];
+//    self.rightBarButton.type = MHBarButtonItemTypePlayPause;
+//
+//    
+//    self.leftBarButton = [MHBarButtonItem.alloc initWithImage:MHGalleryImage(@"left_arrow")
+//                                                        style:UIBarButtonItemStylePlain
+//                                                       target:self
+//                                                       action:@selector(leftPressed:)];
+//    self.rightBarButton.type = MHBarButtonItemTypeLeft;
+//
+//    
+//    self.rightBarButton = [MHBarButtonItem.alloc initWithImage:MHGalleryImage(@"right_arrow")
+//                                                         style:UIBarButtonItemStylePlain
+//                                                        target:self
+//                                                        action:@selector(rightPressed:)];
+//    self.rightBarButton.type = MHBarButtonItemTypeRigth;
+//
+//    
+//    self.shareBarButton = [MHBarButtonItem.alloc initWithBarButtonSystemItem:UIBarButtonSystemItemAction
+//                                                                      target:self
+//                                                                      action:@selector(sharePressed)];
+//    self.shareBarButton.type = MHBarButtonItemTypeShare;
+//    
+//    if (self.UICustomization.hideShare) {
+//        
+//        self.shareBarButton = [MHBarButtonItem.alloc initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+//                                                                             target:self
+//                                                                             action:nil];
+//        self.shareBarButton.type = MHBarButtonItemTypeFlexible;
+//
+//        self.shareBarButton.width = 30;
+//    }
     
-    self.leftBarButton = [MHBarButtonItem.alloc initWithImage:MHGalleryImage(@"left_arrow")
-                                                        style:UIBarButtonItemStylePlain
-                                                       target:self
-                                                       action:@selector(leftPressed:)];
-    self.rightBarButton.type = MHBarButtonItemTypeLeft;
-
+//        self.toolbar = UIToolbar.new;
+//        self.toolbar.tintColor = self.UICustomization.barButtonsTintColor;
+//        self.toolbar.tag = 307;
+//        [self.view addSubview:self.toolbar];
+//        
+//        [self.toolbar mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.left.mas_equalTo(self.view.mas_left);
+//            make.right.mas_equalTo(self.view.mas_right);
+//            make.bottom.mas_equalTo(self.view.mas_bottom);
+//        }];
+//        self.toolbar.barTintColor = self.UICustomization.barTintColor;
+//        self.toolbar.barStyle = self.UICustomization.barStyle;
+    self.navigationBar.barTintColor = [UIColor colorWithRed:0 green:156.f/255.f blue:243.f/255.f alpha:1.0];
+    self.navigationBar.tintColor = [UIColor whiteColor];
+    self.navigationBar.translucent = NO;
     
-    self.rightBarButton = [MHBarButtonItem.alloc initWithImage:MHGalleryImage(@"right_arrow")
-                                                         style:UIBarButtonItemStylePlain
-                                                        target:self
-                                                        action:@selector(rightPressed:)];
-    self.rightBarButton.type = MHBarButtonItemTypeRigth;
-
-    
-    self.shareBarButton = [MHBarButtonItem.alloc initWithBarButtonSystemItem:UIBarButtonSystemItemAction
-                                                                      target:self
-                                                                      action:@selector(sharePressed)];
-    self.shareBarButton.type = MHBarButtonItemTypeShare;
-    
-    if (self.UICustomization.hideShare) {
-        
-        self.shareBarButton = [MHBarButtonItem.alloc initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
-                                                                             target:self
-                                                                             action:nil];
-        self.shareBarButton.type = MHBarButtonItemTypeFlexible;
-
-        self.shareBarButton.width = 30;
-    }
-    
-    if(!self.isToolBarHidden) {
-        self.toolbar = UIToolbar.new;
-        self.toolbar.tintColor = self.UICustomization.barButtonsTintColor;
-        self.toolbar.tag = 307;
-        [self.view addSubview:self.toolbar];
-        
-        [self.toolbar mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(self.view.mas_left);
-            make.right.mas_equalTo(self.view.mas_right);
-            make.bottom.mas_equalTo(self.view.mas_bottom);
-        }];
-        self.toolbar.barTintColor = self.UICustomization.barTintColor;
-        self.toolbar.barStyle = self.UICustomization.barStyle;
-    }
-
     
     [(UIScrollView*)self.pageViewController.view.subviews[0] setDelegate:self];
     [(UIGestureRecognizer*)[[self.pageViewController.view.subviews[0] gestureRecognizers] firstObject] setDelegate:self];
@@ -388,6 +396,20 @@
                 [imageViewController playButtonPressed];
             }
         }
+    }
+}
+
+- (void)deletePressed {
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Delete Confirm Message", @"Delete Confirm Message") delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"Cancel") destructiveButtonTitle:NSLocalizedString(@"Delete Photo", @"My Collection") otherButtonTitles:nil, nil];
+    [actionSheet showInView:self.view];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 1) {
+        return;
+    }
+    if(self.delegate) {
+        [self.delegate imageViewerControllerDidTapDelete:self currentIndex:self.pageIndex];
     }
 }
 
@@ -529,33 +551,33 @@
 
 -(void)updateToolBarForItem:(MHGalleryItem*)item{
     
-    if(!self.isToolBarHidden) {
-        MHBarButtonItem *flex = [MHBarButtonItem.alloc initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
-                                                                            target:self
-                                                                            action:nil];
-        flex.type = MHBarButtonItemTypeFlexible;
-        
-        
-        MHBarButtonItem *fixed = [MHBarButtonItem.alloc initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
-                                                                             target:self
-                                                                             action:nil];
-        fixed.width = 30;
-        fixed.type = MHBarButtonItemTypeFixed;
-        
-        [self enableOrDisbaleBarbButtons];
-        
-        if (item.galleryType == MHGalleryTypeVideo) {
-            MHImageViewController *imageViewController = self.pageViewController.viewControllers.firstObject;
-            if (imageViewController.isPlayingVideo) {
-                [self changeToPauseButton];
-            }else{
-                [self changeToPlayButton];
-            }
-            [self setToolbarItemsWithBarButtons:@[self.shareBarButton,flex,self.leftBarButton,flex,self.playStopBarButton,flex,self.rightBarButton,flex,fixed] forGalleryItem:item];
-        }else{
-            [self setToolbarItemsWithBarButtons:@[self.shareBarButton,flex,self.leftBarButton,flex,self.rightBarButton,flex,fixed] forGalleryItem:item];
-        }
-    }
+//    if(!self.isToolBarHidden) {
+//        MHBarButtonItem *flex = [MHBarButtonItem.alloc initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+//                                                                            target:self
+//                                                                            action:nil];
+//        flex.type = MHBarButtonItemTypeFlexible;
+//        
+//        
+//        MHBarButtonItem *fixed = [MHBarButtonItem.alloc initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+//                                                                             target:self
+//                                                                             action:nil];
+//        fixed.width = 30;
+//        fixed.type = MHBarButtonItemTypeFixed;
+//        
+//        [self enableOrDisbaleBarbButtons];
+//        
+//        if (item.galleryType == MHGalleryTypeVideo) {
+//            MHImageViewController *imageViewController = self.pageViewController.viewControllers.firstObject;
+//            if (imageViewController.isPlayingVideo) {
+//                [self changeToPauseButton];
+//            }else{
+//                [self changeToPlayButton];
+//            }
+//            [self setToolbarItemsWithBarButtons:@[self.shareBarButton,flex,self.leftBarButton,flex,self.playStopBarButton,flex,self.rightBarButton,flex,fixed] forGalleryItem:item];
+//        }else{
+//            [self setToolbarItemsWithBarButtons:@[self.shareBarButton,flex,self.leftBarButton,flex,self.rightBarButton,flex,fixed] forGalleryItem:item];
+//        }
+//    }
 }
 
 -(void)setToolbarItemsWithBarButtons:(NSArray*)barButtons forGalleryItem:(MHGalleryItem*)item{

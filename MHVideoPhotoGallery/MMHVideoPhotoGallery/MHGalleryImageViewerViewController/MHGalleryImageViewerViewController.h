@@ -15,11 +15,17 @@
 @class MHTransitionDismissMHGallery;
 @class MHGalleryController;
 @class MHImageViewController;
+@class MHGalleryImageViewerViewController;
 
 @interface MHPinchGestureRecognizer : UIPinchGestureRecognizer
 @property (nonatomic)NSInteger tag;
 @end
 
+@protocol MHGalleryImageViewerViewControllerDelegate <NSObject>
+
+- (void)imageViewerControllerDidTapDelete:(MHGalleryImageViewerViewController *)viewController currentIndex:(NSInteger)currentIndex;
+
+@end
 
 @interface MHGalleryImageViewerViewController : UIViewController<UIPageViewControllerDelegate,UIPageViewControllerDataSource,UINavigationControllerDelegate,UIScrollViewDelegate,UIGestureRecognizerDelegate,UINavigationBarDelegate, UITextViewDelegate>
 
@@ -39,9 +45,10 @@
 @property (nonatomic,getter = isHiddingToolBarAndNavigationBar)  BOOL hiddingToolBarAndNavigationBar;
 
 
-@property (nonatomic, assign,getter=isToolBarHidden) BOOL toolbarHidden;
-@property (nonatomic, strong) NSArray *rightBarButtonItems;
+@property (nonatomic, strong) UIBarButtonItem *deleteButton;
+@property (nonatomic, strong) UIBarButtonItem *shareButton;
 @property (nonatomic, strong) UIBarButtonItem *leftBarButtonItem;
+@property (nonatomic, retain) id<MHGalleryImageViewerViewControllerDelegate> delegate;
 
 -(MHGalleryController*)galleryViewController;
 -(void)updateToolBarForItem:(MHGalleryItem*)item;
