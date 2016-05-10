@@ -142,7 +142,7 @@
     }
     UIBarButtonItem *shareButton = [UIBarButtonItem.alloc initWithImage:self.shareImage style:UIBarButtonItemStylePlain target:self action:@selector(sharePressed)];
     
-    if(self.deleteButton) {
+    if(self.deleteImage) {
         UIBarButtonItem *deleteButton = [UIBarButtonItem.alloc initWithImage:self.deleteImage style:UIBarButtonItemStylePlain target:self action:@selector(deletePressed)];
         
         self.navigationItem.rightBarButtonItems = @[deleteButton, shareButton];
