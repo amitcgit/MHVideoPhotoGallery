@@ -138,8 +138,6 @@
 //                                                                           target:self
 //                                                                           action:@selector(backButtonAction)];
             self.navigationItem.hidesBackButton = YES;
-            self.leftBarButtonItem.action = @selector(donePressed);
-            self.navigationItem.leftBarButtonItem = self.leftBarButtonItem;
         }
     }
     
@@ -150,8 +148,8 @@
     } else {
         self.navigationItem.rightBarButtonItems = @[self.shareButton];
     }
-    self.leftBarButtonItem.action = @selector(donePressed);
-    self.navigationItem.leftBarButtonItem = self.leftBarButtonItem;
+    self.backButtonItem.action = @selector(donePressed);
+    self.navigationItem.leftBarButtonItem = self.backButtonItem;
     
 
     self.view.backgroundColor = [UIColor whiteColor];//[self.UICustomization MHGalleryBackgroundColorForViewMode:MHGalleryViewModeImageViewerNavigationBarShown];

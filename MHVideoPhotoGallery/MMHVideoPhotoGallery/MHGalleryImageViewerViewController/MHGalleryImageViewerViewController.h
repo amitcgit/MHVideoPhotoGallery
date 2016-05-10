@@ -47,7 +47,7 @@
 
 @property (nonatomic, strong) UIBarButtonItem *deleteButton;
 @property (nonatomic, strong) UIBarButtonItem *shareButton;
-@property (nonatomic, strong) UIBarButtonItem *leftBarButtonItem;
+@property (nonatomic, strong) UIBarButtonItem *backButtonItem;
 @property (nonatomic, retain) id<MHGalleryImageViewerViewControllerDelegate> delegate;
 
 -(MHGalleryController*)galleryViewController;
