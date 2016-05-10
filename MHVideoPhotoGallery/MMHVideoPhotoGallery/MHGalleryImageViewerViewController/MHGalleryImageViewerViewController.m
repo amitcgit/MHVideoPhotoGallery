@@ -266,9 +266,9 @@
 //        }];
 //        self.toolbar.barTintColor = self.UICustomization.barTintColor;
 //        self.toolbar.barStyle = self.UICustomization.barStyle;
-    self.navigationBar.barTintColor = [UIColor colorWithRed:0 green:156.f/255.f blue:243.f/255.f alpha:1.0];
-    self.navigationBar.tintColor = [UIColor whiteColor];
-    self.navigationBar.translucent = NO;
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0 green:156.f/255.f blue:243.f/255.f alpha:1.0];
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    self.navigationController.navigationBar.translucent = NO;
     
     
     [(UIScrollView*)self.pageViewController.view.subviews[0] setDelegate:self];
