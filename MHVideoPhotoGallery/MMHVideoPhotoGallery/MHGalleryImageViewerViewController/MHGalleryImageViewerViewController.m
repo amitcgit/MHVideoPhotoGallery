@@ -122,6 +122,18 @@
     }
 }
 
+- (void)setshareImage:(UIImage *)image {
+    _shareImage = image;
+}
+
+- (void)setbackButtonImage:(UIImage *)image {
+    _backButtonImage = image;
+}
+
+- (void)setdeleteImage:(UIImage *)image {
+    _deleteImage = image;
+}
+
 -(void)viewDidLoad{
     [super viewDidLoad];
     
